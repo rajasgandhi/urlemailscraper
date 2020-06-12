@@ -50,7 +50,7 @@ def output():
         for email in emails:
             emails1.append(email)
 
-    return render_template('output.html', emails = emails)
+    return render_template('output.html', emails = emails1)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
