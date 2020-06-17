@@ -1,3 +1,4 @@
+aniso8601==8.0.0
 appdirs==1.4.3
 astroid==2.3.3
 attrs==19.3.0
@@ -13,8 +14,12 @@ constantly==15.1.0
 cryptography==2.9.2
 cssselect==1.1.0
 distlib==0.3.0
+docopt==0.6.2
 filelock==3.0.12
 Flask==1.1.2
+Flask-Ext==0.1
+Flask-RESTful==0.3.8
+gunicorn==20.0.4
 hyperlink==19.0.0
 idna==2.9
 incremental==17.5.0
@@ -39,8 +44,11 @@ pymongo==3.10.1
 pyOpenSSL==19.1.0
 pyppeteer==0.2.2
 pyquery==1.4.1
+pytz==2020.1
 queuelib==1.5.0
 requests==2.23.0
+requests-html==0.10.0
+Scrapy==2.1.0
 selenium==3.141.0
 service-identity==18.1.0
 six==1.14.0
@@ -54,4 +62,5 @@ w3lib==1.22.0
 websockets==8.1
 Werkzeug==1.0.1
 wrapt==1.11.2
+yarg==0.1.9
 zope.interface==5.1.0

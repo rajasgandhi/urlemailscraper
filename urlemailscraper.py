@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup as bs
 import json
 import os
 from lxml import html
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import re
 from selenium import webdriver
 
@@ -17,40 +17,42 @@ def main():
 
 @app.route("/output", methods=["POST"])
 def output():
-    '''user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
-
-    session_requests = requests.session()
-
-    result = session_requests.get(request.form['url'], headers={'User-Agent': user_agent})
-    tree = html.fromstring(result.text)
-
-    soup = bs(result.text, "html.parser")
-
-    text = soup.text
-
-    emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", text)'''
+    domains=request.form['url'].split(',')
     
-    '''driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    driver.get(request.form['url'])
+    return render_template('output.html', emails = logic(domains))
 
-    emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)'''
+@app.route("/api", methods=['GET'])
+def api():
+    domains=request.args.get('domain')
+    apikey=request.args.get('apikey')
+    if apikey is None:
+        return jsonify("Invalid Response", "Make sure API key is present!")
+    else:
+        return jsonify(logic(domains))
 
+def logic(domains):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
-
-    domains=request.form['url'].split(',')
     driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     emails1=[]
-    for domain in domains:
-        driver.get(domain)
+    if ',' in domains:
+        domains1=domains.split(',')
+        for domain in domains1:
+            driver.get(domain)
+            emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
+            for email in emails:
+                emails1.append(email)
+    else:
+        domains1 = domains
+        driver.get(domains1)
         emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
         for email in emails:
             emails1.append(email)
-
-    return render_template('output.html', emails = emails1)
+  
+    return emails1
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(host="0.0.0.0", port=os.environ.get('PORT', 5000))
