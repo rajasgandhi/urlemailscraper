@@ -17,7 +17,7 @@ def main():
 
 @app.route("/output", methods=["POST"])
 def output():
-    domains=request.form['url'].split(',')
+    domains=request.form['url']
     
     return render_template('output.html', emails = logic(domains))
 
@@ -41,13 +41,13 @@ def logic(domains):
     if ',' in domains:
         domains1=domains.split(',')
         for domain in domains1:
-            driver.get(domain)
+            driver.get(str(domain))
             emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
             for email in emails:
                 emails1.append(email)
     else:
         domains1 = domains
-        driver.get(domains1)
+        driver.get(str(domains1))
         emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
         for email in emails:
             emails1.append(email)
