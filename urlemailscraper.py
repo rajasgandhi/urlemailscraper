@@ -17,7 +17,7 @@ def main():
 
 @app.route("/output", methods=["POST"])
 def output():
-    domains=request.form['url'].split(',')
+    domains=request.form['url']
     
     return render_template('output.html', emails = logic(domains))
 
