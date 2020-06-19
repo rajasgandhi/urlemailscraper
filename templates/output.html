@@ -20,13 +20,18 @@
                     </header>
                     
 					<hr />
-					
-                    <h2>Here is the email addresses found:</h2>
-                    <ul>
-                        {% for email in emails: %}
-                            <li>{{ email }}</li><br>
-                        {% endfor %}
-                    </ul>
+					{% block content %}
+						{% if length  %}
+                    		<h2>Here is the email addresses found:</h2>
+                    			<ul>
+                        			{% for email in emails: %}
+                            		<li>{{ email }}</li><br>
+                        			{% endfor %}
+								</ul>
+						{% else %}
+								<h2>No email addresses were found</h2>
+						{% endif %}
+					{% endblock content %}
                     <hr />
                 
                 </section>
