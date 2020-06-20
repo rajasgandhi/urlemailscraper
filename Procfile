@@ -1,1 +1,1 @@
-web: gunicorn urlemailscraper:app
+web: python urlemailscraper.py
