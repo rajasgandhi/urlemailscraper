@@ -3,8 +3,6 @@ appdirs==1.4.3
 astroid==2.3.3
 attrs==19.3.0
 Automat==20.2.0
-beautifulsoup4==4.9.0
-bs4==0.0.1
 certifi==2020.4.5.1
 cffi==1.14.0
 chardet==3.0.4
@@ -27,7 +25,6 @@ isort==4.3.21
 itsdangerous==1.1.0
 Jinja2==2.11.2
 lazy-object-proxy==1.4.3
-lxml==4.5.0
 MarkupSafe==1.1.1
 mccabe==0.6.1
 parse==1.15.0
@@ -56,7 +53,6 @@ soupsieve==2.0
 tenacity==6.2.0
 tqdm==4.46.0
 Twisted==20.3.0
-urllib3==1.25.9
 virtualenv==20.0.18
 w3lib==1.22.0
 websockets==8.1

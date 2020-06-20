@@ -1,9 +1,5 @@
 import requests
-import urllib.request
-from bs4 import BeautifulSoup as bs
-import json
 import os
-from lxml import html
 from flask import Flask, render_template, request, jsonify
 import re
 from selenium import webdriver
