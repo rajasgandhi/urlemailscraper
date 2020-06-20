@@ -23,7 +23,7 @@ def output():
 
 @app.route("/api", methods=['GET'])
 def api():
-    domains=request.args.get('domain')
+    domains=request.args.get('url')
     apikey=request.args.get('apikey')
     if apikey is None:
         return jsonify("Invalid Response", "Make sure API key is present!")
