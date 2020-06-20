@@ -41,13 +41,21 @@ def logic(domains):
     if ',' in domains:
         domains1=domains.split(',')
         for domain in domains1:
-            driver.get(str(domain))
+            domain = str(domain)
+            if (domain.startswith("https://")):
+                domain = "http://" + domain[7:]
+            if (not domain.startswith("http://")):
+                domain = "http://" + domain
+            driver.get(domain)
             emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
             for email in emails:
                 emails1.append(email)
     else:
-        domains1 = domains
-        driver.get(str(domains1))
+        domain = str(domain)
+        if (domain.startswith("https://")):
+            domain = "http://" + domain[7:]
+        if (not domain.startswith("http://")):
+            domain = "http://" + domain
         emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
         for email in emails:
             emails1.append(email)
