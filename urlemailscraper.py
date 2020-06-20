@@ -19,7 +19,7 @@ def main():
 def output():
     domains=request.form['url']
     
-    return render_template('output.html', emails = logic(domains), length=(len(emails1) != 0))
+    return render_template('output.html', emails = logic(domains), length=(len(logic(domains)) != 0))
 
 @app.route("/api", methods=['GET'])
 def api():
@@ -36,7 +36,7 @@ def logic(domains):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
-    driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
     emails1=[]
     if ',' in domains:
         domains1=domains.split(',')
