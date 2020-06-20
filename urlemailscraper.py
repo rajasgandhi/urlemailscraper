@@ -19,7 +19,7 @@ def main():
 def output():
     domains=request.form['url']
     
-    return render_template('output.html', emails = logic(domains))
+    return render_template('output.html', emails = logic(domains), length=(len(emails1) != 0))
 
 @app.route("/api", methods=['GET'])
 def api():
