@@ -34,8 +34,7 @@ def api():
 
 def logic(domains):
     driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
-    emails1=[]
-    if ',' in domains:
+    '''if ',' in domains:
         domains1=domains.split(',')
         for domain in domains1:
             domain = str(domain)
@@ -45,20 +44,17 @@ def logic(domains):
                 domain = "http://" + domain
             driver.get(domain)
             emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
-            for email in emails:
-                emails1.append(email)
-    else:
-        domains = str(domains)
-        if (domains.startswith("https://")):
-            domains = "http://" + domains[7:]
-        if (not domains.startswith("http://")):
-            domains = "http://" + domains
-        driver.get(domains)
-        emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
-        for email in emails:
-            emails1.append(email)
+            return emails
+    else:'''
+    domain = str(domains)
+    if (domain.startswith("https://")):
+        domain = "http://" + domain[7:]
+    if (not domain.startswith("http://")):
+        domain = "http://" + domain
+    driver.get(domain)
+    emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
   
-    return emails1
+    return emails
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=os.environ.get('PORT', 5000))
