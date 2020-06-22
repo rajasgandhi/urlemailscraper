@@ -53,10 +53,10 @@ def logic(urls):
     return emails'''
 
     url = str(urls)
-    if (url.startswith("https://")):
+    '''if (url.startswith("https://")):
         url = "http://" + url[7:]
     if (not url.startswith("http://")):
-        url = "http://" + url
+        url = "http://" + url'''
     
 
     r = session.get(url)
