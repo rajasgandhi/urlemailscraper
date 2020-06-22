@@ -60,13 +60,13 @@ def logic(urls):
     new_loop=asyncio.new_event_loop()
     asyncio.set_event_loop(new_loop)
     session = AsyncHTMLSession()
-    browser = await launch(
+    browser = await launch({
         'ignoreHTTPSErrors':True, 
         'headless':True, 
         'handleSIGINT':False, 
         'handleSIGTERM':False, 
         'handleSIGHUP':False
-    )
+    })
     session.browser#_browser = browser
     resp_page = await session.get(url)
     await resp_page.html.arender()
