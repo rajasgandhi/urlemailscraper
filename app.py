@@ -7,7 +7,7 @@ from requests_html import HTMLSession
 app = Flask(__name__)
 
 session = HTMLSession()
-session.browser
+#session.browser
 
 @app.route("/")
 @app.route("/index")
@@ -59,7 +59,7 @@ def logic(urls):
         url = "http://" + url'''
     
 
-    r = session.get(url)
+    r = session.get("http://profoundbiz.com/contact")
     session.browser
     r.html.render()
     return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)
