@@ -3,7 +3,6 @@ import os
 from flask import Flask, render_template, request, jsonify
 import re
 from requests_html import HTMLSession
-import asyncio
 
 app = Flask(__name__)
 
@@ -59,8 +58,9 @@ def logic(urls):
     if (not url.startswith("http://")):
         url = "http://" + url
     
-    asyncio.set_event_loop(asyncio.new_event_loop())
+
     r = session.get(url)
+    session.browser
     r.html.render()
     return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)
 
