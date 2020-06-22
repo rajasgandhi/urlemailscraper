@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, jsonify
 import re
 from requests_html import AsyncHTMLSession
 import asyncio
-import pyppeteer
+from pyppeteer import launch
 
 app = Flask(__name__)
 
@@ -40,8 +40,8 @@ def logic(urls):
             driver.get(domain)
             emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
             return emails
-    else:'''
-    '''domain = str(domains)
+    else:
+    domain = str(domains)
     if (domain.startswith("https://")):
         domain = "http://" + domain[7:]
     if (not domain.startswith("http://")):
@@ -60,7 +60,7 @@ def logic(urls):
     new_loop=asyncio.new_event_loop()
     asyncio.set_event_loop(new_loop)
     session = AsyncHTMLSession()
-    browser = await pyppeteer.launch() 
+    browser = await launch() 
         ''''ignoreHTTPSErrors':True, 
         'headless':True, 
         'handleSIGINT':False, 
