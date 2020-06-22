@@ -2,15 +2,12 @@ import requests
 import os
 from flask import Flask, render_template, request, jsonify
 import re
-from selenium import webdriver
+from requests_html import HTMLSession
 
 app = Flask(__name__)
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
+session = HTMLSession()
+session.browser
 
 @app.route("/")
 @app.route("/index")
@@ -32,8 +29,7 @@ def api():
     else:
         return jsonify(logic(domains))
 
-def logic(domains):
-    driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
+def logic(urls):
     '''if ',' in domains:
         domains1=domains.split(',')
         for domain in domains1:
@@ -46,7 +42,7 @@ def logic(domains):
             emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
             return emails
     else:'''
-    domain = str(domains)
+    '''domain = str(domains)
     if (domain.startswith("https://")):
         domain = "http://" + domain[7:]
     if (not domain.startswith("http://")):
@@ -54,7 +50,17 @@ def logic(domains):
     driver.get(domain)
     emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
   
-    return emails
+    return emails'''
+
+    url = str(urls)
+    if (url.startswith("https://")):
+        url = "http://" + url[7:]
+    if (not url.startswith("http://")):
+        url = "http://" + url
+    
+    r = session.get(url)
+    r.html.render()
+    return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=os.environ.get('PORT', 5000))
