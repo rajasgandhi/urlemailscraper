@@ -58,6 +58,7 @@ def logic(urls):
     if (not url.startswith("http://")):
         url = "http://" + url
     
+    session.browser
     r = session.get(url)
     r.html.render()
     return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)
