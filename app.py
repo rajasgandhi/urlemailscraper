@@ -2,12 +2,11 @@ import requests
 import os
 from flask import Flask, render_template, request, jsonify
 import re
-from requests_html import HTMLSession
+from requests_html import AsyncHTMLSession
+import asyncio
+import pyppeteer
 
 app = Flask(__name__)
-
-session = HTMLSession()
-#session.browser
 
 @app.route("/")
 @app.route("/index")
@@ -58,11 +57,26 @@ def logic(urls):
     if (not url.startswith("http://")):
         url = "http://" + url'''
     
+    new_loop=asyncio.new_event_loop()
+    asyncio.set_event_loop(new_loop)
+    session = AsyncHTMLSession()
+    browser = await pyppeteer.launch({ 
+        'ignoreHTTPSErrors':True, 
+        'headless':True, 
+        'handleSIGINT':False, 
+        'handleSIGTERM':False, 
+        'handleSIGHUP':False
+    })
+    session._browser = browser
+    resp_page = await session.get(url)
+    await resp_page.html.arender()
+    return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", resp_page.html.html)
+    
 
-    r = session.get("http://profoundbiz.com/contact")
+    '''r = session.get("http://profoundbiz.com/contact")
     #session.browser
     r.html.render()
-    return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)
+    return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)'''
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=os.environ.get('PORT', 5000))
