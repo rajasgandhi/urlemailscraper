@@ -60,7 +60,7 @@ def logic(urls):
     new_loop=asyncio.new_event_loop()
     asyncio.set_event_loop(new_loop)
     session = AsyncHTMLSession()
-    browser = await pyppeteer.launch()
+    browser = await pyppeteer.launch() 
         ''''ignoreHTTPSErrors':True, 
         'headless':True, 
         'handleSIGINT':False, 
