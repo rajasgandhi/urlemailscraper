@@ -60,14 +60,14 @@ def logic(urls):
     new_loop=asyncio.new_event_loop()
     asyncio.set_event_loop(new_loop)
     session = AsyncHTMLSession()
-    browser = await launch
-        '''ignoreHTTPSErrors':True, 
+    browser = await launch(
+        'ignoreHTTPSErrors':True, 
         'headless':True, 
         'handleSIGINT':False, 
         'handleSIGTERM':False, 
         'handleSIGHUP':False
-    )'''
-    session._browser = browser
+    )
+    session.browser#_browser = browser
     resp_page = await session.get(url)
     await resp_page.html.arender()
     return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", resp_page.html.html)
