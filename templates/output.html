@@ -22,11 +22,11 @@
 					<hr />
 					{% block content %}
 						{% if length  %}
-                    		<h2>Here is the email addresses found:</h2>
+                    		<h2>Here are the email addresses found:</h2>
                     			<ul>
-                        			{% for email in emails: %}
-                            		<li>{{ email }}</li><br>
-                        			{% endfor %}
+                        			
+                            		<li>{{ emails }}</li><br>
+                        			
 								</ul>
 						{% else %}
 								<h2>No email addresses were found</h2>
