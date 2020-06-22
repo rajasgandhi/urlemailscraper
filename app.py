@@ -60,7 +60,7 @@ def logic(urls):
     
 
     r = session.get("http://profoundbiz.com/contact")
-    session.browser
+    #session.browser
     r.html.render()
     return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)
 
