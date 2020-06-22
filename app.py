@@ -7,7 +7,7 @@ from requests_html import HTMLSession
 app = Flask(__name__)
 
 session = HTMLSession()
-session.browser
+#session.browser
 
 @app.route("/")
 @app.route("/index")
