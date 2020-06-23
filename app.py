@@ -20,10 +20,10 @@ def main():
 def output():
     domains=request.form['url']
     
-    return render_template('output.html', emails = logic(domains), length=1)#(len(logic(domains)) != 0))
+    return render_template('output.html', emails = logic(domains), (len(logic(domains)) != 0))
 
 def logic(urls):
-    '''if ',' in domains:
+    if ',' in domains:
         domains1=domains.split(',')
         for domain in domains1:
             domain = str(domain)
@@ -33,17 +33,17 @@ def logic(urls):
                 domain = "http://" + domain
             driver.get(domain)
             emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
-            return emails
+            
     else:
-    domain = str(domains)
-    if (domain.startswith("https://")):
-        domain = "http://" + domain[7:]
-    if (not domain.startswith("http://")):
-        domain = "http://" + domain
-    driver.get(domain)
-    emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
+        domain = str(domains)
+        if (domain.startswith("https://")):
+            domain = "http://" + domain[7:]
+        if (not domain.startswith("http://")):
+            domain = "http://" + domain
+        driver.get(domain)
+        emails = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", driver.find_element_by_tag_name('body').text)
   
-    return emails'''
+    return emails
     #print("getting here")
 
     '''url = str(urls)
@@ -70,7 +70,7 @@ def logic(urls):
     #session.browser
     r.html.render()
     return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)'''
-    url = str(urls)
+    '''url = str(urls)
     if (url.startswith("https://")):
         url = "http://" + url[7:]
     if (not url.startswith("http://")):
@@ -78,7 +78,7 @@ def logic(urls):
     
     r = session.get(url)
     r.html.render()
-    return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)
+    return re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", r.html.html)'''
 
 @app.route("/api", methods=['GET'])
 def api():
