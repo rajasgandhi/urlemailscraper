@@ -21,7 +21,7 @@ def output():
     
     return render_template('output.html', emails = logic(domains), length = (len(logic(domains)) != 0))
 
-def logic(urls):
+def logic(domains):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     chrome_options.add_argument("--headless")
