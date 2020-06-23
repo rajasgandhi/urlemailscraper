@@ -18,7 +18,7 @@ def main():
 def output():
     domains=request.form['url']
     
-    return render_template('output.html', emails = logic(domains), (len(logic(domains)) != 0))
+    return render_template('output.html', emails = logic(domains), length = (len(logic(domains)) != 0))
 
 def logic(urls):
     chrome_options = webdriver.ChromeOptions()
