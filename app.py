@@ -5,6 +5,7 @@ import re
 from requests_html import HTMLSession
 import asyncio
 from pyppeteer import launch
+from selenium import webdriver
 
 app = Flask(__name__)
 
